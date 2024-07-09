@@ -1,0 +1,13 @@
+spring:
+  application:
+    name:maven.project
+server:
+  address: localhost
+  port: 8081
+
+# \uBAA8\uB4E0 \uC561\uCD94\uC5D0\uC774\uD130 \uC5D4\uB4DC\uD3EC\uC778\uD2B8\uB97C HTTP \uB85C \uACF5\uAC1C
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,11 +1,15 @@
 package com.limhm.maven.project;
 
+import com.limhm.maven.project.global.properties.AppProperties;
 import java.util.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+// @ConfigurationProperties 붙어 있는 클래스를 스프링 컨테이너에 등록
+@EnableConfigurationProperties(AppProperties.class)
 public class Application {
 
   public static void main(String[] args) {

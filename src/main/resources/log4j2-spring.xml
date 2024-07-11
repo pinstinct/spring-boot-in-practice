@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="LOG_PATTERN">
+      %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%5p] [%15.15t] %-40.40c{1.} : %m%n%ex
+    </Property>
+  </Properties>
+  <Appenders>
+    <Console name="ConsoleAppender" target="SYSTEM_OUT">
+      <PatternLayout pattern="${LOG_PATTERN}" />
+    </Console>
+    <RollingFile name="FileAppender"
+      fileName="logs/application.log"
+      filePattern="logs/application-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <Pattern>${LOG_PATTERN}</Pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="1MB" />
+        <TimeBasedTriggeringPolicy interval="1" />
+      </Policies>
+      <DefaultRolloverStrategy max="3"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.limhm.maven.project" level="debug" additivity="false">
+      <AppenderRef ref="FileAppender" />
+    </Logger>
+    <Logger name="org.springframework.boot" level="info" additivity="false">
+      <AppenderRef ref="ConsoleAppender" />
+    </Logger>
+    <Root level="info">
+      <AppenderRef ref="FileAppender" />
+      <AppenderRef ref="ConsoleAppender" />
+    </Root>
+  </Loggers>
+</Configuration>

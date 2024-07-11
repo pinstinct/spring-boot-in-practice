@@ -27,3 +27,10 @@ app:
         enabled: true
         token: asdf998hhyqthgthgtYYtggghg9908jjh7ttr
         roles: USER,ADMIN
+
+logging:
+  file:
+    name: application.log
+  logback:
+    rollingpolicy:
+      max-history: 1

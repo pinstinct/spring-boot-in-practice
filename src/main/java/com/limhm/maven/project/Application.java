@@ -26,7 +26,7 @@ public class Application {
     application.setWebApplicationType(WebApplicationType.SERVLET);
     application.setDefaultProperties(properties);
     application.run(args);
-    logger.info("Log4j2 configuration");
+    logger.info("Application started successfully with Log4j2 configuration");
   }
 
 }

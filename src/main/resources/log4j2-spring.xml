@@ -24,7 +24,7 @@
   </Appenders>
   <Loggers>
     <Logger name="com.limhm.maven.project" level="debug" additivity="false">
-      <AppenderRef ref="FileAppender" />
+      <AppenderRef ref="ConsoleAppender" />
     </Logger>
     <Logger name="org.springframework.boot" level="info" additivity="false">
       <AppenderRef ref="ConsoleAppender" />

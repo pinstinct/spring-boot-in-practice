@@ -1,4 +1,6 @@
-package com.limhm.maven.project.app.course.entity;
+package com.limhm.maven.project.app.model.course.entity;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.limhm.maven.project.ApplicationTests;
 import jakarta.validation.ConstraintViolation;
@@ -9,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CourseTest extends ApplicationTests {
+class CourseTest extends ApplicationTests {
 
   private static final Logger logger = LoggerFactory.getLogger(CourseTest.class);
 
   @Test
-  public void validateRating() throws Exception {
+  public void validateRating() {
     Course course = new Course(1, "CS50", "Computer", 0, "컴퓨터 기초 수업");
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -23,5 +25,7 @@ public class CourseTest extends ApplicationTests {
     violations.forEach(courseConstraintViolation -> logger.error(
         "A constraint violation has occurred. Violation details: [{}].",
         courseConstraintViolation));
+
+    assertThat(violations).isNotNull();
   }
 }

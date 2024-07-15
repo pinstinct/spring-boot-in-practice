@@ -1,4 +1,4 @@
-package com.limhm.maven.project.app.course.entity;
+package com.limhm.maven.project.app.model.course.entity;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,10 +17,10 @@ public class Course {
 
   private String description;
 
-  protected Course() {
+  public Course() {
   }
 
-  protected Course(long id, String name, String category, int rating, String description) {
+  public Course(long id, String name, String category, int rating, String description) {
     this.id = id;
     this.name = name;
     this.category = category;

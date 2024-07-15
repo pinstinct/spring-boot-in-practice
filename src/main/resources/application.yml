@@ -2,21 +2,21 @@ spring:
   application:
     name: maven.project
   lifecycle:
-    timeout-per-shutdown-phase: 1m  # \uC548\uC804 \uC885\uB8CC \uC124\uC815
+    timeout-per-shutdown-phase: 1m  #  처리 중인 요청이 완료될 때까지 기다려주는 타임아웃 설정
 
 server:
   address: localhost
   port: 8081
-  shutdown: graceful  # \uC548\uC804 \uC885\uB8CC \uC124\uC815
+  shutdown: graceful  # 안전 종료 설정
 
-# \uBAA8\uB4E0 \uC561\uCD94\uC5D0\uC774\uD130 \uC5D4\uB4DC\uD3EC\uC778\uD2B8\uB97C HTTP \uB85C \uACF5\uAC1C
+# 모든 액추에이터 엔드포인트를 HTTP 로 공개
 management:
   endpoints:
     web:
       exposure:
         include: '*'
 
-# \uCEE4\uC2A4\uD140 \uC560\uD50C\uB9AC\uCF00\uC774\uC158 \uD504\uB85C\uD37C\uD2F0
+# 커스텀 애플리케이션 프로퍼티
 app:
   sbip:
     ct:

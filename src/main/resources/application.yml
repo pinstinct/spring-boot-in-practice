@@ -13,6 +13,10 @@ spring:
   h2:
     console:
       enabled: true
+  sql:
+    init:
+      schema-locations: classpath:sql/schema/sbip-schema.sql
+      data-locations: classpath:sql/data/sbip-data.sql
 
 server:
   address: localhost

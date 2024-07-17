@@ -24,7 +24,7 @@ public class DataSchemaInitTest extends ApplicationTests {
     int noOfCourses = 0;
 
     try (PreparedStatement ps = dataSource.getConnection()
-        .prepareStatement("SELECT COUNT(1) FROM" + " COURSE")) {
+        .prepareStatement("SELECT COUNT(1) FROM" + " COURSES")) {
       rs = ps.executeQuery();
       while (rs.next()) {
         noOfCourses = rs.getInt(1);

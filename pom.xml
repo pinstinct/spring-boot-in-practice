@@ -78,6 +78,21 @@
 			<artifactId>passay</artifactId>
 			<version>1.6.0</version>
 		</dependency>
+
+		<!--	스프링 데이터	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!--	데이터베이스 드라이버	-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<!--	컴파일 타임에는 사용되지 않고 애플리케이션 런타임에서만 사용되도록 설정	-->
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

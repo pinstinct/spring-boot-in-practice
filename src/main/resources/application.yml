@@ -3,6 +3,16 @@ spring:
     name: maven.project
   lifecycle:
     timeout-per-shutdown-phase: 1m  #  처리 중인 요청이 완료될 때까지 기다려주는 타임아웃 설정
+  datasource:
+    url: jdbc:h2:mem:sbipdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    hikari:
+      maximum-pool-size: 10
+  h2:
+    console:
+      enabled: true
 
 server:
   address: localhost

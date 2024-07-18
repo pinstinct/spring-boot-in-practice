@@ -17,7 +17,7 @@ class CourseTest extends ApplicationTests {
 
   @Test
   public void validateRating() {
-    Course course = new Course(1, "CS50", "Computer", 0, "컴퓨터 기초 수업");
+    Course course = new Course("CS50", "Computer", 0, "컴퓨터 기초 수업");
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     // Course 객체에 정의된 모든 제약 사항 준수 여부를 검증하고 위반 사항을 모아서 반환

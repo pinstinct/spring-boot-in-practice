@@ -16,7 +16,7 @@ public class Course {
 
   @Id  // primary key
   @Column(name = "ID")  // 이름이 한 단어 이상인 카멜케이스 필드가 있다면 언더스코어를 사용해서 컬럼 생성
-  /**
+  /* *
    * GenerationType
    * - Table: JPA 구현체가 데이터베이스에 키 생성 전용 테이블을 만들고 이 테이블에서 키를 생성하고 기본 키로 사용
    * - Identity: JPA 구현체가 데이터베이스의 식별자 컬럼에서 생성된 값을 기본 키로 사용

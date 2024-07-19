@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.limhm.maven.project.ApplicationTests;
 import com.limhm.maven.project.app.model.course.entity.Course;
+import com.limhm.maven.project.app.model.course.entity.DescriptionOnly;
 import com.limhm.maven.project.app.model.course.entity.QCourse;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -243,5 +244,14 @@ public class CourseRepositoryTest extends ApplicationTests {
     OrderSpecifier<Integer> descOrderSpecifier = course.rating.desc();
     assertThat(Lists.newArrayList(courseRepository.findAll(descOrderSpecifier)).get(0)
         .getName()).isEqualTo("Getting Started with Spring Security DSL");
+  }
+
+  @Test
+  public void givenACourseAvailableWhenGenCourseByNameThenGetCourseDescription() {
+    courseRepository.saveAll(getCourses());
+    Iterable<DescriptionOnly> result = courseRepository.getCourseByName("Rapid Spring Boot "
+        + "Application Development");
+    assertThat(result).extracting("description").contains("Spring Boot gives all the power of the"
+        + " Spring Framework without all fo the complexity");
   }
 }

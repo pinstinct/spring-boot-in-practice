@@ -1,6 +1,7 @@
 package com.limhm.maven.project.app.model.course.repository;
 
 import com.limhm.maven.project.app.model.course.entity.Course;
+import com.limhm.maven.project.app.model.course.entity.DescriptionOnly;
 import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -53,4 +54,6 @@ public interface CourseRepository extends JpaRepository<Course, Long>,
   @Query("update Course c set c.rating=:rating where c.name=:name")
   // int 혹은 Integer 반환 타입인 경우, 변경된 행의 개수를 반환
   int updateCourseRatingByName(@Param("rating") int rating, @Param("name") String name);
+
+  Iterable<DescriptionOnly> getCourseByName(String name);
 }

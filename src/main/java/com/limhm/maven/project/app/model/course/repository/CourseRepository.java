@@ -29,4 +29,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
   // 이름이 주어진 문자열로 시작하는 과정 목록 조회
   Iterable<Course> findByNameStartsWith(String name);
+
+  // @NamedQuery 애너테이션에서 name 속성으로 지정했더 메서드 이름과 같은 이름의 메서드를 추가
+  Iterable<Course> findAllByCategoryAndRating(String category, int rating);
 }

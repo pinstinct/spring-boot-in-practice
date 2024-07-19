@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -12,6 +14,9 @@ import java.util.Objects;
 
 @Entity  // JPA 로 관리되는 엔티티 클래스라는 것을 알려줌
 @Table(name = "COURSES")
+@NamedQueries({
+    @NamedQuery(name = "Course.findAllByRating", query = "select c from Course c where c.category=?1"),
+    @NamedQuery(name = "Course.findAllByCategoryAndRating", query = "select c from Course c where c.category=?1 and c.rating=?2")})
 public class Course {
 
   @Id  // primary key

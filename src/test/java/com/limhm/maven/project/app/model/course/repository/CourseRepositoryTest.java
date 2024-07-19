@@ -154,7 +154,7 @@ public class CourseRepositoryTest extends ApplicationTests {
   }
 
   @Test
-  void givenDataAvailableWhenApplyCustomSortThenGetSortedResult() {
+  public void givenDataAvailableWhenApplyCustomSortThenGetSortedResult() {
     courseRepository.saveAll(getCoursesForPaging());
     Pageable customSortPageable = PageRequest.of(0, 5,
         Sort.by("Rating").descending().and(Sort.by("Name")));
@@ -167,5 +167,11 @@ public class CourseRepositoryTest extends ApplicationTests {
     };
     assertThat(courseRepository.findAll(customSortPageable)).first()
         .has(customSortFirstCourseCondition);
+  }
+
+  @Test
+  public void givenCoursesCreatedWhenLoadCoursesBySpringCategoryThenExpectThreeCourses() {
+    courseRepository.saveAll(getCourses());
+    assertThat(courseRepository.findAllByCategoryAndRating("Spring", 4)).hasSize(1);
   }
 }

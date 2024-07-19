@@ -52,3 +52,10 @@ app:
         enabled: true
         token: asdf998hhyqthgthgtYYtggghg9908jjh7ttr
         roles: USER,ADMIN
+
+logging:
+  level:
+#    root: DEBUG
+    org.hibernate:
+      SQL: DEBUG
+      orm.jdbc.bind: TRACE

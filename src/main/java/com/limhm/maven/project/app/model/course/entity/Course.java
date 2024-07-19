@@ -15,6 +15,7 @@ import java.util.Objects;
 @Entity  // JPA 로 관리되는 엔티티 클래스라는 것을 알려줌
 @Table(name = "COURSES")
 @NamedQueries({
+    // JPQL 문법을 따르기 때문에 테이블 이름을 직접 다루는 대신 엔티티 클래스 이름 참조
     @NamedQuery(name = "Course.findAllByRating", query = "select c from Course c where c.category=?1"),
     @NamedQuery(name = "Course.findAllByCategoryAndRating", query = "select c from Course c where c.category=?1 and c.rating=?2")})
 public class Course {

@@ -174,4 +174,14 @@ public class CourseRepositoryTest extends ApplicationTests {
     courseRepository.saveAll(getCourses());
     assertThat(courseRepository.findAllByCategoryAndRating("Spring", 4)).hasSize(1);
   }
+
+  @Test
+  public void givenCoursesCreatedWhenLoadCoursesWithQueryThenExpectCourseDetails() {
+    courseRepository.saveAll(getCourses());
+    assertThat(courseRepository.findAllByRating(3)).hasSize(2);
+    assertThat(courseRepository.findAllByCategoryAndRatingGreaterThan("Spring", 3)).hasSize(2);
+
+    courseRepository.updateCourseRatingByName(4, "Getting Started with Spring Cloud Kubernetes");
+    assertThat(courseRepository.findAllByCategoryAndRatingGreaterThan("Spring", 3)).hasSize(3);
+  }
 }

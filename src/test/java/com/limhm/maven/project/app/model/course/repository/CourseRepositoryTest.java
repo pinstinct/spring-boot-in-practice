@@ -205,9 +205,13 @@ public class CourseRepositoryTest extends ApplicationTests {
      * */
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-    // CriteriaBuilder 는 CriteriaQuery 를 정의하는데 사용되고, CriteriaQuery 는 Course 클래스를 파라미터 타입으로 전달받음
+    /*
+     * CriteriaBuilder 는 CriteriaQuery 를 정의하는데 사용되고, CriteriaQuery 는 Course 클래스를 파라미터 타입으로 전달받는다.
+     * 비지니스 로직에 맞게 CriteriaQuery, CriteriaUpdate, CriteriaDelete 인스턴스를 생성한다.
+     * */
     CriteriaQuery<Course> courseCriteriaQuery = criteriaBuilder.createQuery(Course.class);
 
+    // Root 객체는 Course 엔티티를 참조하게 된다. 쿼리에 사용되는 표현식을 만드는 데 사용됨
     Root<Course> courseRoot = courseCriteriaQuery.from(Course.class);
     Predicate courseCategoryPredicate = criteriaBuilder.equal(courseRoot.get("category"), "Spring");
     courseCriteriaQuery.where(courseCategoryPredicate);

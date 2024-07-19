@@ -4,6 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.limhm.maven.project.ApplicationTests;
 import com.limhm.maven.project.app.model.course.entity.Course;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Condition;
@@ -19,6 +25,9 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Autowired
   private CourseRepository courseRepository;
+
+  @Autowired
+  private EntityManager entityManager;
 
   @BeforeEach
   public void setUp() {
@@ -183,5 +192,27 @@ public class CourseRepositoryTest extends ApplicationTests {
 
     courseRepository.updateCourseRatingByName(4, "Getting Started with Spring Cloud Kubernetes");
     assertThat(courseRepository.findAllByCategoryAndRatingGreaterThan("Spring", 3)).hasSize(3);
+  }
+
+  @Test
+  public void givenCoursesCreatedWhenLoadCoursesWithQueryThenExpectCorrectCourseDetails() {
+    courseRepository.saveAll(getCourses());
+
+    /*
+     * EntityManger 인스턴스는 여러 엔티티 인스턴스로 구성되는 퍼시스턴스(persistence) 컨텍스트와 관련되는 인스턴스다.
+     * 엔티티 인스턴스의 라이프사이클은 퍼시스턴스 컨텍스에 의해 관리된다.
+     * CriteriaBuilder 인스턴스를 사용하면 Criteria API 기반 쿼리, 조회, 정렬 등을 사용할 수 있다.
+     * */
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+    // CriteriaBuilder 는 CriteriaQuery 를 정의하는데 사용되고, CriteriaQuery 는 Course 클래스를 파라미터 타입으로 전달받음
+    CriteriaQuery<Course> courseCriteriaQuery = criteriaBuilder.createQuery(Course.class);
+
+    Root<Course> courseRoot = courseCriteriaQuery.from(Course.class);
+    Predicate courseCategoryPredicate = criteriaBuilder.equal(courseRoot.get("category"), "Spring");
+    courseCriteriaQuery.where(courseCategoryPredicate);
+    TypedQuery<Course> query = entityManager.createQuery(courseCriteriaQuery);
+
+    assertThat(query.getResultList().size()).isEqualTo(3);
   }
 }

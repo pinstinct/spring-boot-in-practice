@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.limhm.maven.project.ApplicationTests;
 import com.limhm.maven.project.app.model.course.entity.Course;
+import com.limhm.maven.project.app.model.course.entity.QCourse;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -13,6 +16,7 @@ import jakarta.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Condition;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,5 +222,26 @@ public class CourseRepositoryTest extends ApplicationTests {
     TypedQuery<Course> query = entityManager.createQuery(courseCriteriaQuery);
 
     assertThat(query.getResultList().size()).isEqualTo(3);
+  }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  @Test
+  public void queryDslTest() {
+    courseRepository.saveAll(getCourses());
+
+    QCourse course = QCourse.course;
+    JPAQuery query1 = new JPAQuery(entityManager);  // JPAQuery(QueryDSL 에서 JPA 를 사용할 수 있게 해주는
+    // JPQLQuery 인스턴스의 기본 구현체) 인스턴스 생성
+    query1.from(course).where(course.category.eq("Spring"));
+    assertThat(query1.fetch().size()).isEqualTo(3);
+
+    JPAQuery query2 = new JPAQuery(entityManager);
+    query2.from(course).where(course.category.eq("Spring").and(course.rating.gt(3)));
+    assertThat(query2.fetch().size()).isEqualTo(2);
+
+    // QuerydslPredicateExecutor 인터페이스를 상속받은 findAll 메서드의 인자로 OrderSpecifier 인스턴스를 전달
+    OrderSpecifier<Integer> descOrderSpecifier = course.rating.desc();
+    assertThat(Lists.newArrayList(courseRepository.findAll(descOrderSpecifier)).get(0)
+        .getName()).isEqualTo("Getting Started with Spring Security DSL");
   }
 }

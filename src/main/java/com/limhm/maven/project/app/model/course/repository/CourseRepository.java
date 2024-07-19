@@ -5,12 +5,14 @@ import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository  // 스프링 리포지터리로 사용된다는 것을 알려줌, 예외 변환(JPA 구현체마다 달라지는 예외가 아니라 DataAccessException 만 처리하면 됨)
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Long>,
+    QuerydslPredicateExecutor<Course> {
   // 비어 있더라도 스프링 데이터 JPA 가 런타임에 인터페이스 구현체를 자동으로 생성
 
   // 카테고리 기준으로 모든 과정 정보 목록 조회

@@ -39,6 +39,54 @@ public class CourseRepositoryTest extends ApplicationTests {
     courseRepository.deleteAll();
   }
 
+  private List<Course> givenCourse() {
+    Course rapidSpringBootCourse = new Course("Rapid Spring Boot Application Development", "Spring",
+        4, "Spring Boot gives all the power of the Spring Framework without all fo the complexity");
+    Course springSecurityDslCourse = new Course("Getting Started with Spring Security DSL",
+        "Spring", 5, "Learn Spring Security DsL in easy steps");
+    Course springCloudKubernetesCourse = new Course("Getting Started with Spring Cloud Kubernetes",
+        "Spring", 3, "Master Spring Boot application deployment with Kubernetes");
+    Course rapidPythonCourse = new Course("Getting Started with Python", "Python", 5,
+        "Learn Python concepts in easy steps");
+    Course gameDevelopmentWithPython = new Course("Game Development with Python", "Python", 3,
+        "Learn Python by developing 10 wonderful games");
+    Course javascriptForAll = new Course("JavaScript for All", "JavaScript", 4,
+        "Learn basic JavaScript syntax that can apply to anywhere");
+    Course javascriptCompleteGuide = new Course("JavaScript Complete Guide", "JavaScript", 5,
+        "Master JavaScript with Core Concepts and Web Development");
+
+    return Arrays.asList(rapidSpringBootCourse, springSecurityDslCourse,
+        springCloudKubernetesCourse, rapidPythonCourse, gameDevelopmentWithPython, javascriptForAll,
+        javascriptCompleteGuide);
+  }
+
+  private List<Course> givenCourseForPaging() {
+    Course rapidSpringBootCourse = new Course("Rapid Spring Boot Application Development", "Spring",
+        4, "Spring Boot gives all the power of the Spring Framework without all fo the complexity");
+    Course springSecurityDslCourse = new Course("Getting Started with Spring Security DSL",
+        "Spring", 5, "Learn Spring Security DsL in easy steps");
+    Course springCloudKubernetesCourse = new Course("Getting Started with Spring Cloud Kubernetes",
+        "Spring", 3, "Master Spring Boot application deployment with Kubernetes");
+    Course cloudNativeSpringBootApplicationDevelopmentCourse = new Course(
+        "Cloud Native Spring Boot Application Development", "Spring", 4,
+        "Cloud Native Spring Boot");
+    Course gettingStartedWithSpringSecurityOauthCourse = new Course(
+        "Getting Started with Spring Security Oauth", "Spring", 5,
+        "Learn Spring Security Oauth in easy steps");
+    Course springBootWithKotlinCourse = new Course("Spring Boot with Kotlin", "Spring", 3,
+        "Master Spring Boot with React");
+    Course masteringJsCourse = new Course("Mastering JS", "JavaScript", 4, "Mastering JS");
+    Course springBootWithReactCourse = new Course("Spring Boot with React", "Spring", 5,
+        "Spring boot with React");
+    Course springBootMicroservicesCourse = new Course("Spring Boot Microservices", "Spring", 3,
+        "Spring Boot Microservices");
+
+    return List.of(rapidSpringBootCourse, springSecurityDslCourse, springCloudKubernetesCourse,
+        cloudNativeSpringBootApplicationDevelopmentCourse,
+        gettingStartedWithSpringSecurityOauthCourse, springBootWithKotlinCourse,
+        springBootWithReactCourse, springBootMicroservicesCourse);
+  }
+
   @Test
   public void givenCreateCourseWhenLoadTheCourseThenExpectSameCourse() {
     Course course = new Course("Rapid Spring Boot Application Development", "spring", 4,
@@ -78,7 +126,7 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Test
   public void givenCreateCoursesWhenLoadTheCourseThenExpectSameCourses() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
     assertThat(courseRepository.findAllByCategory("Spring")).hasSize(3);
     assertThat(courseRepository.existsByName("JavaScript for All")).isTrue();
     assertThat(courseRepository.existsByName("Mastering JavaScript")).isFalse();
@@ -86,36 +134,9 @@ public class CourseRepositoryTest extends ApplicationTests {
     assertThat(courseRepository.findByNameStartsWith("Getting Started")).hasSize(3);
   }
 
-  private List<Course> getCourses() {
-    Course rapidSpringBootCourse = new Course("Rapid Spring Boot Application Development", "Spring",
-        4, "Spring Boot gives all the power of the Spring Framework without all fo the complexity");
-
-    Course springSecurityDslCourse = new Course("Getting Started with Spring Security DSL",
-        "Spring", 5, "Learn Spring Security DsL in easy steps");
-
-    Course springCloudKubernetesCourse = new Course("Getting Started with Spring Cloud Kubernetes",
-        "Spring", 3, "Master Spring Boot application deployment with Kubernetes");
-
-    Course rapidPythonCourse = new Course("Getting Started with Python", "Python", 5,
-        "Learn Python concepts in easy steps");
-
-    Course gameDevelopmentWithPython = new Course("Game Development with Python", "Python", 3,
-        "Learn Python by developing 10 wonderful games");
-
-    Course javascriptForAll = new Course("JavaScript for All", "JavaScript", 4,
-        "Learn basic JavaScript syntax that can apply to anywhere");
-
-    Course javascriptCompleteGuide = new Course("JavaScript Complete Guide", "JavaScript", 5,
-        "Master JavaScript with Core Concepts and Web Development");
-
-    return Arrays.asList(rapidSpringBootCourse, springSecurityDslCourse,
-        springCloudKubernetesCourse, rapidPythonCourse, gameDevelopmentWithPython, javascriptForAll,
-        javascriptCompleteGuide);
-  }
-
   @Test
   public void givenDataAvailableWhenLoadFirstPageThenGetFiveRecords() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
     PageRequest pageable = PageRequest.of(0, 5);
     assertThat(courseRepository.findAll(pageable)).hasSize(5);
     assertThat(pageable.getPageNumber()).isEqualTo(0);
@@ -125,35 +146,9 @@ public class CourseRepositoryTest extends ApplicationTests {
     assertThat(nextPageable.getPageNumber()).isEqualTo(1);
   }
 
-  private List<Course> getCoursesForPaging() {
-    Course rapidSpringBootCourse = new Course("Rapid Spring Boot Application Development", "Spring",
-        4, "Spring Boot gives all the power of the Spring Framework without all fo the complexity");
-    Course springSecurityDslCourse = new Course("Getting Started with Spring Security DSL",
-        "Spring", 5, "Learn Spring Security DsL in easy steps");
-    Course springCloudKubernetesCourse = new Course("Getting Started with Spring Cloud Kubernetes",
-        "Spring", 3, "Master Spring Boot application deployment with Kubernetes");
-    Course cloudNativeSpringBootApplicationDevelopmentCourse = new Course(
-        "Cloud Native Spring Boot Application Development", "Spring", 4,
-        "Cloud Native Spring Boot");
-    Course gettingStartedWithSpringSecurityOauthCourse = new Course(
-        "Getting Started with Spring Security Oauth", "Spring", 5,
-        "Learn Spring Security Oauth in easy steps");
-    Course springBootWithKotlinCourse = new Course("Spring Boot with Kotlin", "Spring", 3,
-        "Master Spring Boot with React");
-    Course masteringJsCourse = new Course("Mastering JS", "JavaScript", 4, "Mastering JS");
-    Course springBootWithReactCourse = new Course("Spring Boot with React", "Spring", 5,
-        "Spring boot with React");
-    Course springBootMicroservicesCourse = new Course("Spring Boot Microservices", "Spring", 3,
-        "Spring Boot Microservices");
-    return List.of(rapidSpringBootCourse, springSecurityDslCourse, springCloudKubernetesCourse,
-        cloudNativeSpringBootApplicationDevelopmentCourse,
-        gettingStartedWithSpringSecurityOauthCourse, springBootWithKotlinCourse,
-        springBootWithReactCourse, springBootMicroservicesCourse);
-  }
-
   @Test
   public void givenDataAvailableWhenSortsFirstPageThenGetSortedData() {
-    courseRepository.saveAll(getCoursesForPaging());
+    courseRepository.saveAll(givenCourseForPaging());
 
     Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Order.asc("Name")));
 
@@ -169,7 +164,7 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Test
   public void givenDataAvailableWhenApplyCustomSortThenGetSortedResult() {
-    courseRepository.saveAll(getCoursesForPaging());
+    courseRepository.saveAll(givenCourseForPaging());
     Pageable customSortPageable = PageRequest.of(0, 5,
         Sort.by("Rating").descending().and(Sort.by("Name")));
 
@@ -185,13 +180,13 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Test
   public void givenCoursesCreatedWhenLoadCoursesBySpringCategoryThenExpectThreeCourses() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
     assertThat(courseRepository.findAllByCategoryAndRating("Spring", 4)).hasSize(1);
   }
 
   @Test
   public void givenCoursesCreatedWhenLoadCoursesWithQueryThenExpectCourseDetails() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
     assertThat(courseRepository.findAllByRating(3)).hasSize(2);
     assertThat(courseRepository.findAllByCategoryAndRatingGreaterThan("Spring", 3)).hasSize(2);
 
@@ -201,7 +196,7 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Test
   public void givenCoursesCreatedWhenLoadCoursesWithQueryThenExpectCorrectCourseDetails() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
 
     /*
      * EntityManger 인스턴스는 여러 엔티티 인스턴스로 구성되는 퍼시스턴스(persistence) 컨텍스트와 관련되는 인스턴스다.
@@ -228,7 +223,7 @@ public class CourseRepositoryTest extends ApplicationTests {
   @SuppressWarnings({"rawtypes", "unchecked"})
   @Test
   public void queryDslTest() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
 
     QCourse course = QCourse.course;
     JPAQuery query1 = new JPAQuery(entityManager);  // JPAQuery(QueryDSL 에서 JPA 를 사용할 수 있게 해주는
@@ -248,7 +243,7 @@ public class CourseRepositoryTest extends ApplicationTests {
 
   @Test
   public void givenACourseAvailableWhenGenCourseByNameThenGetCourseDescription() {
-    courseRepository.saveAll(getCourses());
+    courseRepository.saveAll(givenCourse());
     Iterable<DescriptionOnly> result = courseRepository.getCourseByName("Rapid Spring Boot "
         + "Application Development");
     assertThat(result).extracting("description").contains("Spring Boot gives all the power of the"

@@ -1,16 +1,20 @@
 package com.limhm.maven.project.app.model.course.entity;
 
+import com.limhm.maven.project.app.model.author.entity.Author;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity  // JPA 로 관리되는 엔티티 클래스라는 것을 알려줌
 @Table(name = "COURSES")
@@ -45,6 +49,9 @@ public class Course {
 
   @Column(name = "DESCRIPTION")
   private String description;
+
+  @ManyToMany(mappedBy = "courses")  // 관계의 비소유자 쪽에 mappedBy 속성을 지정
+  private Set<Author> authors = new HashSet<>();
 
   public Course() {
   }

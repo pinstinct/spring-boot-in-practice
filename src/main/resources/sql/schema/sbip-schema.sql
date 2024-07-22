@@ -1,8 +1,34 @@
+DROP TABLE IF EXISTS AUTHORS_COURSES CASCADE;
+DROP TABLE IF EXISTS AUTHORS CASCADE;
+DROP TABLE IF EXISTS COURSES CASCADE;
+
+CREATE TABLE AUTHORS
+(
+  id serial PRIMARY KEY,
+  bio varchar(255),
+  name varchar(255)
+);
+
+CREATE TABLE AUTHORS_COURSES
+(
+  author_id bigint NOT NULL,
+  course_id bigint NOT NULL,
+  PRIMARY KEY (author_id, course_id)
+);
+
 CREATE TABLE COURSES
 (
   id serial PRIMARY KEY,
   name varchar(100) NOT NULL,
   category varchar(20) NOT NULL,
-  rating tinyint NOT NULL,
+  rating int NOT NULL,
   description varchar(1000) NOT NULL
 );
+
+ALTER TABLE AUTHORS_COURSES
+ADD CONSTRAINT course_id_fk FOREIGN KEY (course_id)
+REFERENCES COURSES (id) ON DELETE CASCADE;
+
+ALTER TABLE AUTHORS_COURSES
+ADD CONSTRAINT author_id_fk FOREIGN KEY (author_id)
+REFERENCES AUTHORS (id);

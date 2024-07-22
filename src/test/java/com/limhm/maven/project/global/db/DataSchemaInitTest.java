@@ -29,7 +29,7 @@ public class DataSchemaInitTest extends ApplicationTests {
       while (rs.next()) {
         noOfCourses = rs.getInt(1);
       }
-      assertThat(noOfCourses).isEqualTo(5);
+      assertThat(noOfCourses).isEqualTo(0);
     } finally {
       if (rs != null) {
         rs.close();

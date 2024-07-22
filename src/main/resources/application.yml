@@ -16,7 +16,7 @@ spring:
   sql:
     init:
       schema-locations: classpath:sql/schema/sbip-schema.sql
-      data-locations: classpath:sql/data/sbip-data.sql
+#      data-locations: classpath:sql/data/sbip-data.sql
   jpa:
     hibernate:
       # ddl 관리 설정 (none, validate, update, create, create-drop)

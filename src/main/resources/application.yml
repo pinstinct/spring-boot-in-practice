@@ -40,6 +40,9 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 # 커스텀 애플리케이션 프로퍼티
 app:

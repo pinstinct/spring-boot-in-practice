@@ -3,6 +3,7 @@ package com.limhm.maven.project;
 import com.limhm.maven.project.app.model.releaseNote.ReleaseItem;
 import com.limhm.maven.project.app.model.releaseNote.ReleaseNote;
 import com.limhm.maven.project.global.properties.AppProperties;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +36,11 @@ public class Application {
     application.setDefaultProperties(properties);
     application.run(args);
     logger.info("Application started successfully with Log4j2 configuration");
+  }
+
+  @Bean
+  MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
+    return registry -> registry.config().commonTags("application", "course-tracker");
   }
 
   /**

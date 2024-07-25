@@ -141,6 +141,12 @@
 			<version>1.13.2</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!--	Spring Security	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
